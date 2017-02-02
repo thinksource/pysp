@@ -15,7 +15,7 @@ class BbcSpider(scrapy.Spider):
             for a in response.css("a.block-link__overlay-link"):
                 href=response.urljoin(a.css("::attr(href)").extract_first())
                 title=strip(a.css("::text").extract_first())
-                yield scrapy.Request(href, callback=self,detail_parse)
+                yield scrapy.Request(url=href, callback=self.detail_parse)
 
     def detail_parse(self, response):
         title=response.css("h1::text").extract_first()

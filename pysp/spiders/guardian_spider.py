@@ -10,8 +10,8 @@ class GuardianSpider(scrapy.Spider):
     urls=[]
     link_parts=["a.u-faux-block-link__overlay"]
     title_parts=[""]
-    # client=MongoClient('mongodb://localhost:27017/')
-    client=MongoClient('mongodb://challenge:123456@aws-eu-west-1-portal.5.dblayer.com:15271,aws-eu-west-1-portal.6.dblayer.com:15271/admin?ssl=true')
+    client=MongoClient('mongodb://localhost:27017/')
+    #client=MongoClient('mongodb://challenge:123456@aws-eu-west-1-portal.5.dblayer.com:15271/admin?ssl=true')
     db=client['websites']
     collection=db.guardian
     def start_requests(self):
