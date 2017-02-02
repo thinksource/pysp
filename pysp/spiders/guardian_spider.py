@@ -54,7 +54,7 @@ class GuardianSpider(scrapy.Spider):
                         "title":title,
                         "author":author_names,
                         "text":article,
-                        # "publish_date":creat_time,
+                        "publish_date":creat_time,
                         "view_date":datetime.utcnow()
                     }
                     })
