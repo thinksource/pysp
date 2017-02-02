@@ -1,3 +1,5 @@
+# prepare
+`pip install -r requirement`
 # How to run
 
 just run for `scrapy crawl guardian`
@@ -6,6 +8,4 @@ just run for `scrapy crawl guardian`
 just finish the spider guardian, the bbc spider is not finished yet.
 
 
-# about creat_time:
-
-At first I want to add additional colomn creat_time, which is comes form 
+# add creat_time:

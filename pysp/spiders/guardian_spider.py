@@ -32,8 +32,8 @@ class GuardianSpider(scrapy.Spider):
         author=response.css("a[rel*=author]")
         author_names=author.css("span[itemprop*=name]::text").extract()
         passage=response.css("div.content__article-body")
-        strtime=response.css("time::attr(datetime)").extract_first()
-        # creat_time=datetime.strptime(strtime,'%Y-%m-%dT%H:%M:%S%z')
+        timestamp=response.css("time::attr(data-timestamp)").extract_first()
+        creat_time=datetime.utcfromtimestamp(long(timestamp)/1000)
         aps=passage.css("p::text, a::text, p span.drop-cap::text, p span.drop-cap__inner::text").extract()
         pprint.pprint(response.url)
         pprint.pprint(author_names)
@@ -44,7 +44,7 @@ class GuardianSpider(scrapy.Spider):
                 "title":title,
                 "author":author_names,
                 "text": article,
-                # "publish_date":creat_time,
+                "publish_date":creat_time,
                 "view_date": datetime.utcnow()}
             # pprint.pprint(post)
             if self.collection.find_one({"url":response.url}):
