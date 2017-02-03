@@ -10,11 +10,12 @@ class GuardianSpider(scrapy.Spider):
     urls=[]
     link_parts=["a.u-faux-block-link__overlay"]
     title_parts=[""]
-    db=MongoClient('mongodb://localhost:27017/').get_database("websites")
-    # db=MongoClient('mongodb://challenge:123456@aws-eu-west-1-portal.5.dblayer.com:15271/websites?ssl=true')
+    db=MongoClient('mongodb://8.43.86.84:27017/').get_database("websites")
+    # cl=MongoClient('mongodb://challenge:123456@aws-eu-west-1-portal.5.dblayer.com:15271/?ssl=true')
+    # db=cl
     #db=client['websites']
     collection=db.get_collection("guardian")
-    #collection=db['guardian']
+    collection=db.guardian
     def start_requests(self):
         yield scrapy.Request(url=self.main_url, callback=self.main_parse)
 
@@ -47,7 +48,7 @@ class GuardianSpider(scrapy.Spider):
                 "text": article,
                 "publish_date":creat_time,
                 "view_date": datetime.utcnow()}
-            # pprint.pprint(post)
+            pprint.pprint(post)
             if self.collection.find_one({"url":response.url}):
                 self.collection.update_one(
                     {"url":response.url},
