@@ -15,7 +15,7 @@ class GuardianSpider(scrapy.Spider):
     # db=cl
     #db=client['websites']
     collection=db.get_collection("guardian")
-    collection=db.guardian
+    #collection=db.guardian
     def start_requests(self):
         yield scrapy.Request(url=self.main_url, callback=self.main_parse)
 
@@ -31,7 +31,7 @@ class GuardianSpider(scrapy.Spider):
 
     def detail_parse(self, response):
         title=response.css("h1.content__headline::text").extract_first()
-        author=response.css("a[rel*=author]")
+        author=response.css("a[rel=author]")
         author_names=author.css("span[itemprop*=name]::text").extract()
         passage=response.css("div.content__article-body")
         timestamp=response.css("time::attr(data-timestamp)").extract_first()
@@ -48,7 +48,7 @@ class GuardianSpider(scrapy.Spider):
                 "text": article,
                 "publish_date":creat_time,
                 "view_date": datetime.utcnow()}
-            pprint.pprint(post)
+            # pprint.pprint(post)
             if self.collection.find_one({"url":response.url}):
                 self.collection.update_one(
                     {"url":response.url},
